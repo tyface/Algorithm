@@ -2,8 +2,9 @@ package programmers;
 
 public class LevelTest01_1 {
 	public int[][] solution(int[][] arr1, int[][] arr2) {
-		int[][] answer = new int[arr1.length][arr1[0].length];
+		int[][] answer = new int[arr1.length][arr1[0].length];	//입력받는 두 배열의 크기가 같을경우 answer배열 초기화
 
+		// 두배열의 같은 위치의 값을 합산하기 위한 반복문
 		for (int i = 0; i < arr1.length; i++) {
 			for (int j = 0; j < arr1[i].length; j++) {
 				answer[i][j] = arr1[i][j] + arr2[i][j];

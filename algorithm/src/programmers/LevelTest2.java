@@ -44,6 +44,7 @@ public class LevelTest2 {
 		// 플레이어 리스트
 		List<Player> playerList = new ArrayList<Player>();
 
+		// 플레이어 셋팅
 		playerList.add(new Player(1, new int[]{1, 2, 3, 4, 5}, 0, 0));
 		playerList.add(new Player(2, new int[]{2, 1, 2, 3, 2, 4, 2, 5}, 0, 0));
 		playerList.add(new Player(3, new int[]{3, 3, 1, 1, 2, 2, 4, 4, 5, 5}, 0, 0));
@@ -62,24 +63,27 @@ public class LevelTest2 {
 			}
 		}
 
-		int maxPoint = 0;
+		int maxPoint = 0; // 최고 점수
+		int maxCount = 0;
 
-		List<Player> tempList = new ArrayList<Player>();
-
+		/* 최고점수와 사람수  구하기 */
 		for(int i = 0;i < playerList.size();i++) {
 			if(maxPoint < playerList.get(i).point) {
 				maxPoint = playerList.get(i).point;
+				maxCount = 1;
+			} else if (maxPoint == playerList.get(i).point) {
+				maxCount++;
 			}
 		}
 
-		answer = new int[tempList.size()];
+		answer = new int[maxCount];
 
 		int index = 0;
 
-		for(Player p : tempList){
-
-			answer[index++] = p.name;
-
+		for(Player p : playerList){
+			if(p.point == maxPoint) {
+				answer[index++] = p.name;
+			}
 		}
 
 		return answer;

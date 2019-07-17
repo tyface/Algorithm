@@ -32,17 +32,17 @@ public class LevelTest15 {
 	public int solution(int n) {
 		int[] arr = new int[n - 1];
 
-		// n이하 2이상의 모든수를 배열에 입력
+		// 2이상 n이하의 모든수를 배열에 입력
 		for (int i = 2; i <= n; i++) {
 			arr[i - 2] = i;
 		}
 
-		// 소수를 구하는 공식
+		// 소수가 아닌수는 0으로 바꿔주기
 		for (int i = 2; i <= Math.sqrt(n); i++) {	//소수는 해당수의 제곱근보다 작은 정수로 나누었을대 나눠지지 않는수이다
-			if (arr[i - 2] != 0) {		//해당배열에 있는숫자가 0이아닐경우
+			if (arr[i - 2] != 0) {					//해당배열에 있는숫자가 0이아닐경우
 				for (int j = i + i; j <= n; j += i) {
 					if(arr[j - 2] % i == 0) {
-						arr[j - 2] = 0;	//소수가 아니면 해당배열에 0을 입력
+						arr[j - 2] = 0;				//소수가 아니면 해당배열에 0을 입력
 					}
 				}
 			}
@@ -52,7 +52,7 @@ public class LevelTest15 {
 
 		//소수의 개수 구하기
 		for (int i = 0; i < arr.length; i++) {
-			if(arr[i] != 0) {
+			if(arr[i] != 0) { //배열에 들어있는 수가 0이 아닐경우 카운트 +1
 				count++;
 			}
 		}

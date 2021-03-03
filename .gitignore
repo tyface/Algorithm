@@ -32,3 +32,4 @@ hs_err_pid*
 *.project
 *.prefs
 algorithm/src/programmers/Main.java
+/bin/

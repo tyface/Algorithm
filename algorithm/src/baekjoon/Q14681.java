@@ -28,6 +28,7 @@ public class Q14681 {
 		int y = Integer.parseInt(br.readLine());
 		int result;
 		
+		//주석따윈 패쓰
 		if(x > 0 && y > 0) {
 			result = 1;
 		} else if(x < 0 && y > 0) {

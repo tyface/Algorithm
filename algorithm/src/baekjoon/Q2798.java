@@ -1,25 +1,19 @@
 package baekjoon;
 /*
-블랙잭
+일곱난쟁이
 
-문제 https://www.acmicpc.net/problem/2798
-카지노에서 제일 인기 있는 게임 블랙잭의 규칙은 상당히 쉽다. 카드의 합이 21을 넘지 않는 한도 내에서, 카드의 합을 최대한 크게 만드는 게임이다. 블랙잭은 카지노마다 다양한 규정이 있다.
+문제 https://www.acmicpc.net/problem/2309
+왕비를 피해 일곱 난쟁이들과 함께 평화롭게 생활하고 있던 백설공주에게 위기가 찾아왔다. 일과를 마치고 돌아온 난쟁이가 일곱 명이 아닌 아홉 명이었던 것이다.
 
-한국 최고의 블랙잭 고수 김정인은 새로운 블랙잭 규칙을 만들어 상근, 창영이와 게임하려고 한다.
+아홉 명의 난쟁이는 모두 자신이 "백설 공주와 일곱 난쟁이"의 주인공이라고 주장했다. 뛰어난 수학적 직관력을 가지고 있던 백설공주는, 다행스럽게도 일곱 난쟁이의 키의 합이 100이 됨을 기억해 냈다.
 
-김정인 버전의 블랙잭에서 각 카드에는 양의 정수가 쓰여 있다. 그 다음, 딜러는 N장의 카드를 모두 숫자가 보이도록 바닥에 놓는다. 그런 후에 딜러는 숫자 M을 크게 외친다.
-
-이제 플레이어는 제한된 시간 안에 N장의 카드 중에서 3장의 카드를 골라야 한다. 블랙잭 변형 게임이기 때문에, 플레이어가 고른 카드의 합은 M을 넘지 않으면서 M과 최대한 가깝게 만들어야 한다.
-
-N장의 카드에 써져 있는 숫자가 주어졌을 때, M을 넘지 않으면서 M에 최대한 가까운 카드 3장의 합을 구해 출력하시오.
+아홉 난쟁이의 키가 주어졌을 때, 백설공주를 도와 일곱 난쟁이를 찾는 프로그램을 작성하시오.
 
 입력
-첫째 줄에 카드의 개수 N(3 ≤ N ≤ 100)과 M(10 ≤ M ≤ 300,000)이 주어진다. 둘째 줄에는 카드에 쓰여 있는 수가 주어지며, 이 값은 100,000을 넘지 않는 양의 정수이다.
-
-합이 M을 넘지 않는 카드 3장을 찾을 수 있는 경우만 입력으로 주어진다.
+아홉 개의 줄에 걸쳐 난쟁이들의 키가 주어진다. 주어지는 키는 100을 넘지 않는 자연수이며, 아홉 난쟁이의 키는 모두 다르며, 가능한 정답이 여러 가지인 경우에는 아무거나 출력한다.
 
 출력
-첫째 줄에 M을 넘지 않으면서 M에 최대한 가까운 카드 3장의 합을 출력한다.
+일곱 난쟁이의 키를 오름차순으로 출력한다. 일곱 난쟁이를 찾을 수 없는 경우는 없다.
 
  * */
 
@@ -27,47 +21,38 @@ import java.io.*;
 import java.util.*;
 
 public class Q2798 {
+	static int SEVEN_SUM = 100;			// 일곱 난쟁이들의 키의 합
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-	    String[] firstInput = bf.readLine().split(" ");
-	    String[] secondInput = bf.readLine().split(" ");
-		int n = Integer.parseInt(firstInput[0]);			// 카드의 개수
-		int m = Integer.parseInt(firstInput[1]);			// 딜러가 말한 숫자 M
-		int[] numList = new int[n];							// 카드에 적혀있는 숫자 리스트   
-		int result = 0;										// 결과
-		
-		// 문자열 배열에서 정수배열로 변환
-		for (int i = 0; i < secondInput.length; i++) {
-			numList[i] = Integer.parseInt(secondInput[i]);;
+	    List<Integer> tallList = new ArrayList<Integer>();	// 난쟁이 9명의 키 리스트
+	    int tallSum = 0;								  	// 난쟁이들의 키의 합
+	    
+	    for (int i = 0; i < 9; i++) {			// 난쟁이들의 키 입력받기
+	    	int inputInt = Integer.parseInt(bf.readLine()); 
+	    	tallList.add(inputInt);
+			tallSum += inputInt;  
 		}
-		Arrays.sort(numList);					// 오름차순 정렬
-
-		// 세가지수의 합이 M과 가장 가까운 수를 구하는 로직
-		label1:
-		for (int i = numList.length - 1; i > 1; i--) {	// 역순 반복
-			int firstNum = numList[i];					// 첫번째 숫자
-			
-			for (int j = i - 1; j > 0; j--) { 		    // 역순 반복
-				int secondNum = numList[j];				// 두번째 숫자
-				
-				if(firstNum + secondNum > m) continue;	// 역순 반복에서 첫번째수와 두번째수의 합이 m보다 클경우 더이상 로직을 수행할 필요X
-				
-				for (int k = 0; k < j; k++) { 			// 정상 반복
-					int thirdNum = numList[k];			// 세번째 숫자
-					int sum = firstNum + secondNum + thirdNum;	// 세수의 합
-					
-					if(sum == m) {
-						result = sum; 		// 세수의 합이 딜러가말한 M과 같은경우 더이상 연산X
-						break label1;		// 최상위 반복문 종료
-					} else if(sum > m){		// i j k 세수의 합이 m보다 클경우 가장하위 반복물 중지(오름차순 정렬을 하였기때문에 이후 연산은 의미없음)
-						break;
-					} else { // sum < m
-						if(sum > result) result = sum;	// 최대값을 구하는 로직
-					}
-				}
+	    
+	    int remainder = tallSum - SEVEN_SUM;				// 전체의 합중 일곱난쟁이의 키의합을 뺀 나머지
+	    
+	    label:
+	    for (int i = 0; i < tallList.size() - 1; i++) {
+	    	for (int j = i + 1; j < tallList.size(); j++) {
+	    		// 9명 전체의 키의 합중 2명의 키의 합을 뺏을때 SEVEN_SUM 과 같은경우 탐색 종료
+	    		if(remainder == tallList.get(i) + tallList.get(j)) {
+	    			tallList.remove(j);
+	    			tallList.remove(i);
+	    			break label;
+	    		}
 			}
 		}
-		
-		System.out.println(result);
+	    
+	    tallList.sort(null);	// 오름차순 정렬
+	    
+	    // 정답 출력
+	    for (int i = 0; i < tallList.size(); i++) {
+	    		System.out.println(tallList.get(i));
+		}
 	}
 }

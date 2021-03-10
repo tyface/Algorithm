@@ -39,6 +39,7 @@ public class Q1018 {
 			boardArr[i] = bf.readLine().toCharArray();
 		}
 		
+		// 보드판 완전탐색
 		char[][] tempArr = boardArr;
 	    for (int i = 0; i < boardArr.length - CHESS_SIZE + 1; i++) {
 	    	for (int j = 0; j < boardArr[i].length - CHESS_SIZE + 1; j++) {

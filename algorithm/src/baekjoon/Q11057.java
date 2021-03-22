@@ -45,7 +45,8 @@ public class Q11057 {
 					tempArry[j] = tempArry[j - 1] - intArry[j - 1];
 				}
 			
-				tempArry[j] = (tempArry[j] + mod) % mod;
+				tempArry[j] = (tempArry[j] + mod) % mod;	// 오버플로우 방지용
+				
 				sum += tempArry[j];
 			}
 			intArry = tempArry;
